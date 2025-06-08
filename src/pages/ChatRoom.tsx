@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { VStack, Container } from "@chakra-ui/react";
-import useStore, { useAuthStore } from "../store";
+import { VStack, Container, Spinner } from "@chakra-ui/react";
+import useStore from "../store";
 import { useChat } from "../hooks/useChat";
 import ChatHeader from "../components/ChatHeader";
 import MessageList from "../components/MessageList";
@@ -27,7 +27,11 @@ const ChatRoom = () => {
     <Container maxW="container.md" h="100vh" py={5}>
       <VStack h="full" spacing={4}>
         <ChatHeader user={chatUser} onBack={() => navigate("/")} />
-        <MessageList messages={messages} currentUserId={user.id} />
+        {isLoading ? (
+          <Spinner size="xl" />
+        ) : (
+          <MessageList messages={messages} currentUserId={user.id} />
+        )}
         <ChatInput onSendMessage={sendMessage} isLoading={isLoading} />
       </VStack>
     </Container>

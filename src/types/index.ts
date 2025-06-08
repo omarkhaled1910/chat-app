@@ -8,20 +8,20 @@ export interface User {
 
 export interface IMessage {
   id: string;
+  content: string;
   senderId: string;
   receiverId: string;
-  content: string;
-  timestamp: number;
-  mediaUrl?: string;
-  mediaType?: "image" | "video";
-  isRead: boolean;
+  timestamp: string;
+  type: "text" | "broadcast";
+  recipients?: string[];
+  isRead?: boolean;
 }
 
 export interface Chat {
   id: string;
   participants: string[];
-  lastMessage?: IMessage;
   unreadCount: number;
+  messages: IMessage[];
 }
 
 export interface AuthState {

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -14,15 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { useAuthStore } from "../store";
 import { mockService } from "../services/mockService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("test@chat.com");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const toast = useToast();
   const { login, user: AuthUser } = useAuthStore();
-
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -34,7 +33,7 @@ const Login = () => {
       login(user);
       console.log({ user, AuthUser });
 
-      //   navigate("/");
+      navigate("/");
     } catch (error) {
       toast({
         title: "Error",
@@ -72,6 +71,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="test@chat.com"
+                  defaultValue={"test@chat.com"}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -81,6 +81,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="123456"
+                  defaultValue={"123456"}
                 />
               </FormControl>
               <Button

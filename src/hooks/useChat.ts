@@ -24,11 +24,13 @@ export const useChat = (
           mockService.getMessages(userId),
           mockService.getUsers(),
         ]);
+
         setMessages(messagesData);
         const foundUser = usersData.find((u) => u.id === userId);
         if (foundUser) {
           setChatUser(foundUser);
         }
+        console.log({ messagesData, usersData, foundUser });
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -48,8 +50,8 @@ export const useChat = (
           senderId: currentUser.id,
           receiverId: userId,
           content,
-          isRead: false,
-        };
+          type: "text",
+        } as IMessage;
 
         const sentMessage = await mockService.sendMessage(messageData);
         setMessages((prev) => [...prev, sentMessage]);
@@ -63,7 +65,7 @@ export const useChat = (
               receiverId: currentUser.id,
               content: botResponse,
               isRead: false,
-            });
+            } as IMessage);
             setMessages((prev) => [...prev, botMessage]);
           }, 1000);
         }
